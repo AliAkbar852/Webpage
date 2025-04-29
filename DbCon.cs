@@ -12,7 +12,7 @@ namespace Webpage
         private SqlConnection con;
         public DbCon()
         {
-            string ConnectionString = "Data Source=DESKTOP-6BJDJ1A;Initial Catalog=Projects;Integrated Security=True;TrustServerCertificate=True";
+            string ConnectionString = "Server=tcp:logsinsars.database.windows.net,1433;Initial Catalog=db1;Persist Security Info=False;User ID=ali;Password=Akbar@1122;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
             con = new SqlConnection(ConnectionString);
         }
         public bool UDI(string qry)
