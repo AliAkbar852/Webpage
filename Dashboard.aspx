@@ -15,25 +15,31 @@
 
         /* Navbar Styles */
         .navbar {
-            background-color: #2c3e50;
-            overflow: hidden;
+             background-color: #2c3e50;
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
             margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
         }
 
-        .navbar a {
-            float: left;
-            display: block;
+         .navbar a, .navbar .logout {
             color: white;
-            text-align: center;
-            padding: 14px 20px;
             text-decoration: none;
             font-size: 16px;
+            padding: 10px;
+            margin: 5px;
+            display: block;
+            text-align: center;
+            background-color: transparent;
+            border-radius: 5px;
             transition: background-color 0.3s;
         }
 
-        .navbar a:hover {
+        .navbar a:hover, .navbar .logout:hover {
             background-color: #34495e;
         }
 
@@ -41,13 +47,9 @@
             background-color: #1abc9c;
         }
 
-        .navbar .logout {
-            float: right;
-        }
-
         /* Form Styles */
         #form1 {
-            max-width: 800px;
+           max-width: 1000px;
             margin: 0 auto;
             background: white;
             padding: 20px;
@@ -56,16 +58,19 @@
         }
 
         .upload-section {
-            margin-bottom: 20px;
+           margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
         }
 
         input[type="file"] {
             padding: 10px;
-            margin-right: 10px;
         }
 
         input[type="submit"], .logout-btn {
-            background-color: #1abc9c;
+             background-color: #1abc9c;
             color: white;
             border: none;
             padding: 10px 20px;
@@ -93,13 +98,13 @@
 
         /* Repeater Image Gallery */
         .image-gallery {
-            display: flex;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 20px;
         }
 
         .image-gallery > div {
-            background: white;
+             background: white;
             padding: 10px;
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -112,14 +117,28 @@
         }
 
         .image-gallery img {
-            border-radius: 5px;
+           border-radius: 5px;
             object-fit: cover;
+            width: 100%;
+            height: auto;
+            max-height: 150px;
         }
 
         .image-gallery p {
-            margin: 10px 0 0;
+           margin: 10px 0 0;
             color: #333;
             font-size: 14px;
+            word-wrap: break-word;
+        }
+         @media (max-width: 600px) {
+            .upload-section {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .navbar {
+                flex-direction: column;
+            }
         }
     </style>
 </head>

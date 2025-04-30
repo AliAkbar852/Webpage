@@ -14,19 +14,13 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
 
         #form1 {
-            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+            background-color: rgba(255, 255, 255, 0.9); 
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            width: 100%;
-            max-width: 400px;
             text-align: center;
         }
 
@@ -121,25 +115,32 @@
             background-color: #f1f1f1;
         }
     </style>
+    <!-- Bootstrap 5 CSS -->
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+
 </head>
 <body>
-    <form id="form1" runat="server">
-        <div class="form-group">
-            <asp:Label ID="lbl" Text="Enter Email" runat="server"></asp:Label>
-            <asp:TextBox ID="TxtEmail" runat="server" TextMode="Email"></asp:TextBox>
-        </div>
-        <div class="form-group">
-            <asp:Label Text="Enter Password" runat="server"></asp:Label>
-            <asp:TextBox ID="TxtPassword" runat="server" TextMode="Password"></asp:TextBox>
-        </div>
-        <div>
-            <asp:Label ID="LblError" runat="server"></asp:Label>
-        </div>
-        <div class="button-group">
-            <asp:Button ID="BtnLogin" runat="server" Text="Login" OnClick="BtnLogin_Click" />
-            <asp:Button ID="BtnSingUp" Text="Sign Up" runat="server" OnClick="BtnSingUp_Click1" />
-        </div>
-       
-    </form>
+    <div class="container d-flex justify-content-center align-items-center vh-100">
+        <form id="form1" runat="server" class="card p-4 shadow w-100" style="max-width: 400px; background-color: rgba(255, 255, 255, 0.9);">
+            <div class="mb-3">
+                <asp:Label ID="lbl" Text="Enter Email" runat="server" CssClass="form-label"></asp:Label>
+                <asp:TextBox ID="TxtEmail" runat="server" TextMode="Email" CssClass="form-control"></asp:TextBox>
+            </div>
+            <div class="mb-3">
+                <asp:Label Text="Enter Password" runat="server" CssClass="form-label"></asp:Label>
+                <asp:TextBox ID="TxtPassword" runat="server" TextMode="Password" CssClass="form-control"></asp:TextBox>
+            </div>
+            <div class="mb-3">
+                <asp:Label ID="LblError" runat="server" CssClass="text-danger"></asp:Label>
+            </div>
+            <div class="d-flex gap-2">
+                <asp:Button ID="BtnLogin" runat="server" Text="Login" CssClass="btn btn-primary w-100" OnClick="BtnLogin_Click" />
+                <asp:Button ID="BtnSingUp" Text="Sign Up" runat="server" CssClass="btn btn-secondary w-100" OnClick="BtnSingUp_Click1" />
+            </div>
+      </form>
+    </div>
+    <!-- Bootstrap 5 JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
