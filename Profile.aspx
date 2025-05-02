@@ -106,6 +106,22 @@
             display: block;
         }
 
+        /* Form Elements */
+        input[type="text"], input[type="email"], input[type="password"], select {
+            width: 100%;
+            max-width: 300px;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
         /* Modal Styles */
         .modal {
             display: none;
@@ -169,39 +185,102 @@
                 <asp:Button ID="btnLogout" runat="server" Text="Logout" OnClick="btnLogout_Click" CssClass="logout-btn" />
             </a>
         </div>
-
+        <div>
+            <asp:Label Text="Name" runat="server" />
+            <asp:TextBox ID="TxtName" runat="server" />
+        </div>
+        <div>
+            <asp:Label Text="Email" runat="server" />
+            <asp:TextBox ID="TxtEmail" runat="server" TextMode="Email" />
+        </div>
+        <div>
+            <asp:Label Text="Age" runat="server" />
+            <asp:TextBox ID="TxtAge" runat="server" />
+        </div>
+        <div>
+            <label for="ddlGender">Gender:</label>
+            <asp:DropDownList ID="ddlGender" runat="server">
+                <asp:ListItem Value="" Text="Select Gender" />
+                <asp:ListItem Value="Male" Text="Male" />
+                <asp:ListItem Value="Female" Text="Female" />
+            </asp:DropDownList>
+        </div>
+        <div>
+            <label for="ddlStatus">Status:</label>
+            <asp:DropDownList ID="ddlStatus" runat="server">
+                <asp:ListItem Value="" Text="Select Status" />
+                <asp:ListItem Value="Single" Text="Single" />
+                <asp:ListItem Value="Married" Text="Married" />
+                <asp:ListItem Value="Divorced" Text="Divorced" />
+                <asp:ListItem Value="Widowed" Text="Widowed" />
+            </asp:DropDownList>
+        </div>
+        <div>
+            <asp:Button ID="btnUpdateInfo" Text="Update Info" runat="server" CssClass="btn" OnClick="btnUpdateInfo_Click" />"
+            <asp:Label ID="lblUpdateStatus" Text="" runat="server" CssClass="status-label" />
+        </div>
         <div class="upload-section">
             <h3>Profile Picture</h3>
-            <asp:Button ID="btnChangeProfilePic" runat="server" Text="Change Profile Pic" CssClass="btn" OnClientClick="openModal(); return false;" />
+            <asp:Button ID="btnChangeProfilePic" runat="server" Text="Change Profile Pic" CssClass="btn" OnClientClick="openModal('profilePicModal'); return false;" />
             <asp:Label ID="lblStatus" runat="server" CssClass="status-label" />
         </div>
-
-        <!-- Modal -->
+        <div class="upload-section">
+            <h3>Password</h3>
+            <asp:Button ID="btnOpenChangePassword" runat="server" Text="Change Password" CssClass="btn" OnClientClick="openModal('PasswordChangeModal'); return false;" />
+        </div>
+        <div>
+            <asp:Label ID="lblChangePassword" Text="" runat="server" CssClass="status-label" />
+        </div>
+        <!-- Modal for Profile Picture -->
         <div id="profilePicModal" class="modal">
             <div class="modal-content">
-                <span class="close" onclick="closeModal()">×</span>
+                <span class="close" onclick="closeModal('profilePicModal')">&times;</span>
                 <h3>Upload Profile Picture</h3>
                 <asp:FileUpload ID="fuProfilePicture" runat="server" />
                 <br />
                 <asp:Button ID="btnUploadProfilePic" runat="server" Text="Save" CssClass="btn" OnClick="btnUploadProfilePic_Click" />
             </div>
         </div>
+
+        <!-- Modal for Password Change -->
+        <div id="PasswordChangeModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('PasswordChangeModal')">&times;</span>
+                <h3>Change Password</h3>
+                <div>
+                    <asp:Label Text="Old Password" runat="server" />
+                    <asp:TextBox ID="TxtOldPassword" runat="server" TextMode="Password" />
+                </div>
+                <div>
+                    <asp:Label Text="New Password" runat="server" />
+                    <asp:TextBox ID="TxtNewPassword" runat="server" TextMode="Password" />
+                </div>
+                <div>
+                    <asp:Label Text="Confirm Password" runat="server" />
+                    <asp:TextBox ID="ConfirmPassword" runat="server" TextMode="Password" />
+                </div>
+                <asp:Button ID="btnChangePassword" runat="server" Text="Save" CssClass="btn" OnClick="btnChangePassword_Click" />
+            </div>
+        </div>
     </form>
 
     <script>
-        function openModal() {
-            document.getElementById('profilePicModal').style.display = 'block';
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
         }
 
-        function closeModal() {
-            document.getElementById('profilePicModal').style.display = 'none';
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
         }
 
         window.onclick = function (event) {
-            var modal = document.getElementById('profilePicModal');
-            if (event.target == modal) {
-                modal.style.display = 'none';
-            }
+            var modals = ['profilePicModal', 'PasswordChangeModal'];
+            modals.forEach(function (modalId) {
+                var modal = document.getElementById(modalId);
+                if (event.target == modal) {
+                    modal.style.display = 'none';
+                }
+            });
         }
     </script>
 </body>

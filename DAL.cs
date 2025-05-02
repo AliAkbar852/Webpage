@@ -77,7 +77,53 @@ namespace Webpage
             string qry = "Select * from UserInfo";
             return new DbCon().Search(qry);
         }
+        public bool UpdateUserInfoDAL(User user)
+        {
+            var updates = new List<string>();
+            var parameters = new List<SqlParameter>
+            {
+                new SqlParameter("@Email", user.Email)
+            };
 
+            if (!string.IsNullOrEmpty(user.Name))
+            {
+                updates.Add("Name = @Name");
+                parameters.Add(new SqlParameter("@Name", user.Name));
+            }
+            if (!string.IsNullOrEmpty(user.Age))
+            {
+                updates.Add("Age = @Age");
+                parameters.Add(new SqlParameter("@Age", user.Age));
+            }
+            if (!string.IsNullOrEmpty(user.Gender))
+            {
+                updates.Add("Gender = @Gender");
+                parameters.Add(new SqlParameter("@Gender", user.Gender));
+            }
+            if (!string.IsNullOrEmpty(user.Status))
+            {
+                updates.Add("Status = @Status");
+                parameters.Add(new SqlParameter("@Status", user.Status));
+            }
+
+            if (updates.Count == 0)
+            {
+                return false; // No fields to update
+            }
+
+            string query = $"UPDATE UserInfo SET {string.Join(", ", updates)} WHERE Email = @Email";
+            return new DbCon().UDI(query, parameters);
+        }
+        public bool UpdateUserPasswordDAL(string email, string newPassword)
+        {
+            string query = "UPDATE UserInfo SET Password = @Password WHERE Email = @Email";
+            List<SqlParameter> parameters = new List<SqlParameter>()
+            {
+                new SqlParameter("@Password", newPassword),
+                new SqlParameter("@Email", email)
+            };
+            return new DbCon().UDI(query, parameters);
+        }
         public bool InsertOrUpdateProfilePicture(string email, string profilePictureUrl)
         {
             string query = @"

@@ -41,6 +41,14 @@ namespace Webpage
         {
             return new DAL().GetUser();
         }
+        public bool UpdateUserInfo(User user)
+        {
+            return new DAL().UpdateUserInfoDAL(user);
+        }
+        public bool UpdateUserPassword(string email, string newPassword)
+        {
+            return new DAL().UpdateUserPasswordDAL(email, newPassword);
+        }
         public bool InsertOrUpdateProfilePicture(string email, string profilePictureUrl)
         {
             return new DAL().InsertOrUpdateProfilePicture(email, profilePictureUrl);

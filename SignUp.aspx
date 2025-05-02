@@ -102,7 +102,6 @@
                     <asp:ListItem Value="" Text="Select Gender"></asp:ListItem>
                     <asp:ListItem Value="Male" Text="Male"></asp:ListItem>
                     <asp:ListItem Value="Female" Text="Female"></asp:ListItem>
-                    <asp:ListItem Value="Other" Text="Other"></asp:ListItem>
                 </asp:DropDownList>
             </div>
 
