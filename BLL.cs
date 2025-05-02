@@ -41,5 +41,14 @@ namespace Webpage
         {
             return new DAL().GetUser();
         }
+        public bool InsertOrUpdateProfilePicture(string email, string profilePictureUrl)
+        {
+            return new DAL().InsertOrUpdateProfilePicture(email, profilePictureUrl);
+        }
+
+        public string GetProfilePictureUrl(string email)
+        {
+            return new DAL().GetProfilePictureUrl(email);
+        }
     }
 }

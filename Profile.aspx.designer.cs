@@ -11,7 +11,7 @@ namespace Webpage
 {
 
 
-    public partial class Dashboard
+    public partial class Profile
     {
 
         /// <summary>
@@ -33,24 +33,6 @@ namespace Webpage
         protected global::System.Web.UI.WebControls.Image imgProfilePic;
 
         /// <summary>
-        /// btnProfile control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnProfile;
-
-        /// <summary>
-        /// btnSetting control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSetting;
-
-        /// <summary>
         /// btnLogout control.
         /// </summary>
         /// <remarks>
@@ -60,39 +42,39 @@ namespace Webpage
         protected global::System.Web.UI.WebControls.Button btnLogout;
 
         /// <summary>
-        /// FileUpload1 control.
+        /// btnChangeProfilePic control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload FileUpload1;
+        protected global::System.Web.UI.WebControls.Button btnChangeProfilePic;
 
         /// <summary>
-        /// btnUpload control.
+        /// lblStatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnUpload;
+        protected global::System.Web.UI.WebControls.Label lblStatus;
 
         /// <summary>
-        /// lblUploadStatus control.
+        /// fuProfilePicture control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblUploadStatus;
+        protected global::System.Web.UI.WebControls.FileUpload fuProfilePicture;
 
         /// <summary>
-        /// rptImages control.
+        /// btnUploadProfilePic control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptImages;
+        protected global::System.Web.UI.WebControls.Button btnUploadProfilePic;
     }
 }

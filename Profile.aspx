@@ -1,19 +1,21 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Dashboard.aspx.cs" Inherits="Webpage.Dashboard" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Profile.aspx.cs" Inherits="Webpage.Profile" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>Dashboard</title>
+    <title>Profile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
         body {
             font-family: 'Arial', sans-serif;
             background-color: #f4f4f9;
             margin: 0;
             padding: 20px;
+            position: relative;
         }
 
-         .profile-pic {
+        .profile-pic {
             position: fixed;
             top: 10px;
             left: 10px;
@@ -29,9 +31,8 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
-        /* Navbar Styles */
         .navbar {
-             background-color: #2c3e50;
+            background-color: #2c3e50;
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
             margin-bottom: 20px;
@@ -42,7 +43,7 @@
             padding: 10px;
         }
 
-         .navbar a, .navbar .logout {
+        .navbar a, .navbar .logout {
             color: white;
             text-decoration: none;
             font-size: 16px;
@@ -63,9 +64,8 @@
             background-color: #1abc9c;
         }
 
-        /* Form Styles */
         #form1 {
-           max-width: 1000px;
+            max-width: 1000px;
             margin: 0 auto;
             background: white;
             padding: 20px;
@@ -74,7 +74,7 @@
         }
 
         .upload-section {
-           margin-bottom: 20px;
+            margin-bottom: 20px;
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
@@ -85,8 +85,8 @@
             padding: 10px;
         }
 
-        input[type="submit"], .logout-btn {
-             background-color: #1abc9c;
+        input[type="submit"], .btn, .logout-btn {
+            background-color: #1abc9c;
             color: white;
             border: none;
             padding: 10px 20px;
@@ -96,7 +96,7 @@
             transition: background-color 0.3s;
         }
 
-        input[type="submit"]:hover, .logout-btn:hover {
+        input[type="submit"]:hover, .btn:hover, .logout-btn:hover {
             background-color: #16a085;
         }
 
@@ -106,47 +106,45 @@
             display: block;
         }
 
-        hr {
-            border: 0;
-            border-top: 1px solid #ddd;
-            margin: 20px 0;
-        }
-
-        /* Repeater Image Gallery */
-        .image-gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 20px;
-        }
-
-        .image-gallery > div {
-             background: white;
-            padding: 10px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            transition: transform 0.3s;
-        }
-
-        .image-gallery > div:hover {
-            transform: translateY(-5px);
-        }
-
-        .image-gallery img {
-           border-radius: 5px;
-            object-fit: cover;
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
             width: 100%;
-            height: auto;
-            max-height: 150px;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
         }
 
-        .image-gallery p {
-           margin: 10px 0 0;
-            color: #333;
-            font-size: 14px;
-            word-wrap: break-word;
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
-         @media (max-width: 600px) {
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        @media (max-width: 600px) {
             .upload-section {
                 flex-direction: column;
                 align-items: stretch;
@@ -160,40 +158,51 @@
 </head>
 <body>
     <form id="form1" runat="server">
-         <div class="profile-pic">
+        <div class="profile-pic">
             <asp:Image ID="imgProfilePic" runat="server" AlternateText="Profile Picture" />
         </div>
-
-        <!-- Navbar -->
         <div class="navbar">
-            <a href="#" class="active">Dashboard</a>
-            <a href="#"><asp:Button ID="btnProfile" Text="Profile" runat="server" OnClick="btnProfile_Click" /> </a>
-            <a href="#"><asp:Button ID="btnSetting" Text="Settings" runat="server" /> </a>
+            <a href="Dashboard.aspx">Dashboard</a>
+            <a href="Profile.aspx" class="active">Profile</a>
+            <a href="Settings.aspx">Settings</a>
             <a href="#" class="logout">
                 <asp:Button ID="btnLogout" runat="server" Text="Logout" OnClick="btnLogout_Click" CssClass="logout-btn" />
             </a>
         </div>
 
-        <!-- Upload Section -->
         <div class="upload-section">
-            <asp:FileUpload ID="FileUpload1" runat="server" />
-            <asp:Button ID="btnUpload" runat="server" Text="Upload Image" OnClick="btnUpload_Click" />
-            <asp:Label ID="lblUploadStatus" runat="server" CssClass="status-label" />
+            <h3>Profile Picture</h3>
+            <asp:Button ID="btnChangeProfilePic" runat="server" Text="Change Profile Pic" CssClass="btn" OnClientClick="openModal(); return false;" />
+            <asp:Label ID="lblStatus" runat="server" CssClass="status-label" />
         </div>
 
-        <hr />
-
-        <!-- Image Gallery -->
-        <div class="image-gallery">
-            <asp:Repeater ID="rptImages" runat="server">
-                <ItemTemplate>
-                    <div>
-                        <img src='<%# Eval("ImagePath") %>' width="150" height="150" />
-                        <p><%# Eval("UserEmail") %></p>
-                    </div>
-                </ItemTemplate>
-            </asp:Repeater>
+        <!-- Modal -->
+        <div id="profilePicModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">×</span>
+                <h3>Upload Profile Picture</h3>
+                <asp:FileUpload ID="fuProfilePicture" runat="server" />
+                <br />
+                <asp:Button ID="btnUploadProfilePic" runat="server" Text="Save" CssClass="btn" OnClick="btnUploadProfilePic_Click" />
+            </div>
         </div>
     </form>
+
+    <script>
+        function openModal() {
+            document.getElementById('profilePicModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('profilePicModal').style.display = 'none';
+        }
+
+        window.onclick = function (event) {
+            var modal = document.getElementById('profilePicModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
 </body>
 </html>

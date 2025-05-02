@@ -77,5 +77,35 @@ namespace Webpage
             string qry = "Select * from UserInfo";
             return new DbCon().Search(qry);
         }
+
+        public bool InsertOrUpdateProfilePicture(string email, string profilePictureUrl)
+        {
+            string query = @"
+            IF EXISTS (SELECT 1 FROM UserProfilePictures WHERE Email = @Email)
+                UPDATE UserProfilePictures SET ProfilePictureUrl = @ProfilePictureUrl, UploadDate = GETDATE() WHERE Email = @Email
+            ELSE
+                INSERT INTO UserProfilePictures (Email, ProfilePictureUrl) VALUES (@Email, @ProfilePictureUrl)";
+            List<SqlParameter> parameters = new List<SqlParameter>()
+        {
+            new SqlParameter("@Email", email),
+            new SqlParameter("@ProfilePictureUrl", profilePictureUrl)
+        };
+            return new DbCon().UDI(query, parameters);
+        }
+
+        public string GetProfilePictureUrl(string email)
+        {
+            string query = "SELECT ProfilePictureUrl FROM UserProfilePictures WHERE Email = @Email";
+            List<SqlParameter> parameters = new List<SqlParameter>()
+        {
+            new SqlParameter("@Email", email)
+        };
+            DataTable dt = new DbCon().Search(query, parameters);
+            if (dt.Rows.Count > 0)
+            {
+                return dt.Rows[0]["ProfilePictureUrl"].ToString();
+            }
+            return null;
+        }
     }
 }

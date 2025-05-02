@@ -25,8 +25,24 @@ namespace Webpage
             if (!IsPostBack)
             {
                 LoadImages();
+                LoadProfilePicture();
             }
         }
+        private void LoadProfilePicture()
+        {
+            string email = Session["userEmail"].ToString();
+            BLL logic = new BLL();
+            string profilePicUrl = logic.GetProfilePictureUrl(email);
+            if (!string.IsNullOrEmpty(profilePicUrl))
+            {
+                imgProfilePic.ImageUrl = profilePicUrl;
+            }
+            else
+            {
+                imgProfilePic.ImageUrl = "https://media-hosting.imagekit.io/5e2ed990d1c145e1/image.jpg?Expires=1840518897&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=V9FUUGTikfkOoTfTp~T7JhoH1tg2p8H3gQ21cNk8Xs~UJT1MI~gvoSsNbw~ocUSCqqEjfY3~F8muA7d88UMJOp6HE6hzgECIlKYv1gtPNOByB10Q4O3~X40t5CuQnsZX9YE~5IS8ndKK5pMiCM-sTDjFEAcWpqt-iZ7uwvgmqFWD1WxF-48RZnlDpZgSKvbBVBS04sAL0HyCB3ebFOkD5bjxSwaej1MO6FCoUKYCtgxwOZ5X7AzfzI~9~i14z2-7kAVDyVtDXA0X62gsfhmn7flHz7--qgRejxcpmjdNfpDg-e6sCJMQIxNtDoJos9AnD2HK58EdEAKX-7LwsM1rIQ__";
+            }
+        }
+
 
         protected void btnUpload_Click(object sender, EventArgs e)
         {
@@ -115,6 +131,11 @@ namespace Webpage
             Session.Clear();
             Session.Abandon();
             Response.Redirect("LoginForm.aspx");
+        }
+
+        protected void btnProfile_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Profile.aspx");
         }
     }
 }
